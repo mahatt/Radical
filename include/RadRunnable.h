@@ -2,6 +2,9 @@
 #define _RAD_RUNNABLE_H_
 
 namespace radical{
+#include<thread>
+
+
 /*  RadThread 
  *  1. Runnable Thread as interface for classes
  *  2. Simplfiy heteregeous threads
@@ -15,7 +18,8 @@ class RadRunnable{
 		RadRunnable() {
 			mThread = new std::thread(RunWorthy::run);
 		}
-		virtual run() = 0;
+		template<typename... Args>
+		virtual run(Args&& ...) = 0;
 
 };
 
