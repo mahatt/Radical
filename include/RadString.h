@@ -3,10 +3,12 @@
 #include <string>
 namespace radical{
 
+
 /* Case insensitive string Operations
  */
 class istring  : public std::string{
 	public:
+	typedef typename  std::string::value_type value_type;
 		istring() : std::string(){}
 		~istring(){
 			using namespace std;
@@ -48,11 +50,26 @@ class istring  : public std::string{
 
 };
 
+
+inline bool
+operator==(const istring& inLHS, const istring& inRHS){
+	return std::equal(inLHS.begin(),inLHS.end(),
+			          inRHS.begin(),inRHS.end(),
+					  [](istring::value_type first,istring::value_type second){
+					 	 return  ::tolower(first) ==  tolower(second);
+					  });	
+}
+
+inline bool
+operator!=(const istring& inLHS, const istring& inRHS){
+	return std::equal(inLHS.begin(),inLHS.end(),
+			          inRHS.begin(),inRHS.end(),
+					  [](istring::value_type first,istring::value_type second){
+					 	 return  ::tolower(first) !=  tolower(second);
+					  });	
+}
+
 /*
-inline bool
-operator==(const istring& inLHS, const istring& inRHS);
-inline bool
-operator!=(const istring& inLHS, const istring& inRHS);
 inline bool
 operator<=(const istring& inLHS, const istring& inRHS);
 inline bool
